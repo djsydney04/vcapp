@@ -27,21 +27,29 @@ export function PipelineBoard({ deals, onDealClick }: PipelineBoardProps) {
   }, initial);
 
   return (
-    <div className="grid h-[calc(100vh-3rem)] grid-cols-1 gap-4 bg-slate-50 p-4 md:grid-cols-3 xl:grid-cols-6">
+    <div className="grid min-h-[520px] grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm md:grid-cols-3 xl:grid-cols-6">
       {DEAL_STAGES.map((stage) => {
         const stageDeals = grouped[stage.id];
 
         return (
           <div
             key={stage.id}
-            className="flex flex-col rounded-xl border border-slate-200 bg-slate-100/80 backdrop-blur-sm"
+            className="flex flex-col rounded-xl border border-slate-200 bg-white shadow-sm"
           >
             {/* Column header */}
-            <div className="flex items-center justify-between border-b border-slate-200 px-3 py-2">
-              <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-700">
-                {stage.label}
-              </h2>
-              <span className="text-[11px] text-slate-500">
+            <div className="flex items-start justify-between gap-2 border-b border-slate-200 px-3 py-2">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className={`inline-flex h-2.5 w-2.5 rounded-full ${stage.accent}`} aria-hidden />
+                  <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-700">
+                    {stage.label}
+                  </h2>
+                </div>
+                <p className="text-[11px] font-medium text-slate-500">
+                  {stage.description}
+                </p>
+              </div>
+              <span className="rounded-full bg-slate-900/5 px-2 py-1 text-[11px] font-semibold text-slate-700">
                 {stageDeals.length}
               </span>
             </div>
