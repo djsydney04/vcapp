@@ -2,7 +2,7 @@
 'use client';
 
 import { DEAL_STAGES, type Deal, type DealStage } from '@/types/deals';
-import { DealCard } from './DealCard';
+import { DealCard } from './dealcard';
 
 interface PipelineBoardProps {
   deals: Deal[];
