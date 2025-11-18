@@ -60,166 +60,148 @@ export default function PipelinePage() {
   const highPriorityDeals = deals.filter((deal) => deal.priority === 'High').length;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="flex min-h-screen">
-        <aside className="hidden w-64 flex-col justify-between border-r border-slate-200 bg-white/80 px-6 py-8 backdrop-blur lg:flex">
-          <div className="space-y-8">
-            <div className="space-y-1">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-600">Deal Desk</p>
-              <h1 className="text-xl font-semibold text-slate-900">Pipeline</h1>
-              <p className="text-sm text-slate-500">Calm, modern workspace for angels & VCs.</p>
-            </div>
-            <nav className="space-y-1 text-sm font-semibold text-slate-700">
-              <button className="flex w-full items-center justify-between rounded-lg px-3 py-2 transition hover:bg-slate-100">
-                <span>Overview</span>
-                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] text-emerald-700">Live</span>
-              </button>
-              <button className="w-full rounded-lg px-3 py-2 text-left transition hover:bg-slate-100">Pipeline</button>
-              <button className="w-full rounded-lg px-3 py-2 text-left transition hover:bg-slate-100">Notes</button>
-              <button className="w-full rounded-lg px-3 py-2 text-left transition hover:bg-slate-100">Tasks</button>
-            </nav>
-          </div>
-          <div className="space-y-3">
-            <button className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
-              New deal
-            </button>
-            <button className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-slate-300">
-              Share update
-            </button>
-          </div>
-        </aside>
-
-        <div className="flex-1">
-          <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/70 px-6 py-5 backdrop-blur">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="space-y-1">
-                <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-700">Dealflow health</p>
-                <h2 className="text-2xl font-semibold text-slate-900">Where your week stands</h2>
-                <p className="text-sm text-slate-500">
-                  Clean whitespace and focused metrics so partner meetings stay crisp.
-                </p>
-              </div>
-              <div className="flex items-center gap-3 text-sm font-semibold">
-                <button className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-800 transition hover:border-slate-300">
-                  Export
-                </button>
-                <button className="rounded-lg bg-slate-900 px-3 py-2 text-white shadow-sm transition hover:bg-slate-800">
-                  + Add deal
-                </button>
-              </div>
-            </div>
-          </header>
-
-          <main className="space-y-10 px-6 pb-12 pt-8">
-            <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              <StatCard
-                label="Active pipeline"
-                primary={`$${pipelineValue.toLocaleString()}`}
-                hint="target allocation tracked"
-              />
-              <StatCard
-                label="Next follow-ups"
-                primary={`${followUps.length}`}
-                hint="scheduled touchpoints"
-              />
-              <StatCard
-                label="Warm intros needed"
-                primary={`${warmIntroCount}`}
-                hint="blocked by intro paths"
-              />
-              <StatCard
-                label="High priority deals"
-                primary={`${highPriorityDeals}`}
-                hint={`${activeOwners.length} owners across the pipeline`}
-              />
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-3">
-              <div className="space-y-4 lg:col-span-2">
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm">
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-700">Live board</p>
-                    <h3 className="text-lg font-semibold text-slate-900">Deals by stage</h3>
-                    <p className="text-sm text-slate-500">Simplified columns with just enough context to keep momentum.</p>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-slate-700">
-                    <span className="rounded-full bg-slate-100 px-3 py-1">Angels</span>
-                    <span className="rounded-full bg-emerald-50 px-3 py-1">Micro-VC</span>
-                    <span className="rounded-full bg-indigo-50 px-3 py-1">Seed</span>
-                  </div>
-                </div>
-                <PipelineBoard
-                  deals={deals}
-                  onDealClick={(deal) => {
-                    console.log('Clicked deal:', deal);
-                    alert(`Clicked: ${deal.opportunityName} with ${deal.investorName}`);
-                  }}
-                />
-              </div>
-
-              <div className="space-y-4">
-                <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-700">Tasks</p>
-                      <h3 className="text-lg font-semibold text-slate-900">Upcoming follow-ups</h3>
-                    </div>
-                    <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold text-emerald-700">
-                      Due soon
-                    </span>
-                  </div>
-                  <ul className="mt-3 space-y-3">
-                    {followUps.map((deal) => (
-                      <li
-                        key={deal.id}
-                        className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="font-semibold text-slate-900">{deal.opportunityName}</div>
-                          <span className="text-[11px] text-emerald-700">
-                            {formatDate(deal.nextFollowUpAt)}
-                          </span>
-                        </div>
-                        <p className="text-[12px] text-slate-600">
-                          {deal.investorName}
-                          {deal.firmName ? ` • ${deal.firmName}` : ''}
-                        </p>
-                        <p className="text-[11px] text-slate-500">Owner: {deal.owner ?? 'Unassigned'}</p>
-                      </li>
-                    ))}
-                    {followUps.length === 0 && (
-                      <li className="rounded-xl border border-dashed border-slate-300 px-3 py-2 text-[12px] text-slate-500">
-                        No follow-ups scheduled.
-                      </li>
-                    )}
-                  </ul>
-                </div>
-
-                <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
-                  <p className="text-[11px] uppercase tracking-[0.15em] text-indigo-700">Context sharing</p>
-                  <h3 className="text-lg font-semibold text-slate-900">Recent investor notes</h3>
-                  <ul className="mt-3 space-y-3">
-                    {recentNotes.map((deal) => (
-                      <li key={deal.id} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-                        <div className="flex items-center justify-between text-sm text-slate-900">
-                          <span className="font-semibold">{deal.investorName}</span>
-                          <span className="text-[11px] text-slate-500">{formatDate(deal.lastInteractionAt)}</span>
-                        </div>
-                        <p className="text-[11px] text-slate-600">{deal.opportunityName}</p>
-                        <p className="text-[12px] text-slate-700">{deal.notes}</p>
-                      </li>
-                    ))}
-                    {recentNotes.length === 0 && (
-                      <li className="rounded-xl border border-dashed border-slate-300 px-3 py-2 text-[12px] text-slate-500">
-                        Add notes to deals to see them here.
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </section>
-          </main>
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <div className="relative isolate overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 opacity-40 blur-3xl">
+          <div className="absolute left-10 top-10 h-72 w-72 rounded-full bg-indigo-600/40" />
+          <div className="absolute right-6 top-20 h-64 w-64 rounded-full bg-emerald-600/30" />
         </div>
+
+        <header className="relative z-10 flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-5">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
+              Deal Desk
+              <span className="rounded-full bg-emerald-300/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-100">
+                LP-safe
+              </span>
+            </div>
+            <h1 className="mt-2 text-2xl font-semibold text-white">Live pipeline for angels & VCs</h1>
+            <p className="mt-1 text-sm text-slate-300">
+              Keep every outreach, intro, and diligence thread organized in one place—HubSpot but tuned for dealflow.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
+            <button className="rounded-lg bg-white px-3 py-2 text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              + Capture new deal
+            </button>
+            <button className="rounded-lg border border-white/20 px-3 py-2 text-white transition hover:-translate-y-0.5 hover:border-white/40">
+              Share weekly update
+            </button>
+          </div>
+        </header>
+
+        <main className="relative z-10 space-y-8 px-6 pb-10 pt-6">
+          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <StatCard
+              label="Active pipeline"
+              primary={`$${pipelineValue.toLocaleString()}`}
+              hint="target allocation tracked"
+            />
+            <StatCard
+              label="Next follow-ups"
+              primary={`${followUps.length}`}
+              hint="scheduled touchpoints"
+            />
+            <StatCard
+              label="Warm intros needed"
+              primary={`${warmIntroCount}`}
+              hint="blocked by intro paths"
+            />
+            <StatCard
+              label="High priority deals"
+              primary={`${highPriorityDeals}`}
+              hint={`${activeOwners.length} owners across the pipeline`}
+            />
+          </section>
+
+          <section className="grid gap-6 lg:grid-cols-3">
+            <div className="space-y-4 lg:col-span-2">
+              <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-200">Live board</p>
+                  <h2 className="text-lg font-semibold text-white">Deals by stage</h2>
+                  <p className="text-sm text-slate-300">
+                    Drag-friendly columns for deal momentum, designed for fast partner meetings.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-slate-900">
+                  <span className="rounded-full bg-white px-3 py-1">Angels</span>
+                  <span className="rounded-full bg-emerald-100 px-3 py-1">Micro-VC</span>
+                  <span className="rounded-full bg-indigo-100 px-3 py-1">Seed</span>
+                </div>
+              </div>
+              <PipelineBoard
+                deals={deals}
+                onDealClick={(deal) => {
+                  console.log('Clicked deal:', deal);
+                  alert(`Clicked: ${deal.opportunityName} with ${deal.investorName}`);
+                }}
+              />
+            </div>
+
+            <div className="space-y-4">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-200">Tasks</p>
+                    <h3 className="text-lg font-semibold text-white">Upcoming follow-ups</h3>
+                  </div>
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold text-white">
+                    Due soon
+                  </span>
+                </div>
+                <ul className="mt-3 space-y-3">
+                  {followUps.map((deal) => (
+                    <li
+                      key={deal.id}
+                      className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-100"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="font-semibold text-white">{deal.opportunityName}</div>
+                        <span className="text-[11px] text-emerald-200">
+                          {formatDate(deal.nextFollowUpAt)}
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-slate-300">
+                        {deal.investorName}
+                        {deal.firmName ? ` • ${deal.firmName}` : ''}
+                      </p>
+                      <p className="text-[11px] text-slate-400">Owner: {deal.owner ?? 'Unassigned'}</p>
+                    </li>
+                  ))}
+                  {followUps.length === 0 && (
+                    <li className="rounded-xl border border-dashed border-white/20 px-3 py-2 text-[12px] text-slate-300">
+                      No follow-ups scheduled.
+                    </li>
+                  )}
+                </ul>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-indigo-200">Context sharing</p>
+                <h3 className="text-lg font-semibold text-white">Recent investor notes</h3>
+                <ul className="mt-3 space-y-3">
+                  {recentNotes.map((deal) => (
+                    <li key={deal.id} className="rounded-xl bg-white/5 px-3 py-2">
+                      <div className="flex items-center justify-between text-sm text-white">
+                        <span className="font-semibold">{deal.investorName}</span>
+                        <span className="text-[11px] text-slate-300">{formatDate(deal.lastInteractionAt)}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-300">{deal.opportunityName}</p>
+                      <p className="text-[12px] text-slate-200">{deal.notes}</p>
+                    </li>
+                  ))}
+                  {recentNotes.length === 0 && (
+                    <li className="rounded-xl border border-dashed border-white/20 px-3 py-2 text-[12px] text-slate-300">
+                      Add notes to deals to see them here.
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
   );
@@ -233,10 +215,10 @@ interface StatCardProps {
 
 function StatCard({ label, primary, hint }: StatCardProps) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-600">{label}</p>
-      <div className="mt-2 text-2xl font-semibold text-slate-900">{primary}</div>
-      <p className="text-sm text-slate-500">{hint}</p>
+    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-sm">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-200">{label}</p>
+      <div className="mt-2 text-2xl font-semibold text-white">{primary}</div>
+      <p className="text-sm text-slate-300">{hint}</p>
     </div>
   );
 }

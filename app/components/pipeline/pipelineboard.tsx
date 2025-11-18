@@ -27,14 +27,14 @@ export function PipelineBoard({ deals, onDealClick }: PipelineBoardProps) {
   }, initial);
 
   return (
-    <div className="grid min-h-[520px] grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm md:grid-cols-3 xl:grid-cols-6">
+    <div className="grid min-h-[520px] grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 shadow-inner md:grid-cols-3 xl:grid-cols-6">
       {DEAL_STAGES.map((stage) => {
         const stageDeals = grouped[stage.id];
 
         return (
           <div
             key={stage.id}
-            className="flex flex-col rounded-xl border border-slate-200 bg-white shadow-sm"
+            className="flex flex-col rounded-xl border border-slate-200 bg-white/70 shadow-sm backdrop-blur-sm"
           >
             {/* Column header */}
             <div className="flex items-start justify-between gap-2 border-b border-slate-200 px-3 py-2">

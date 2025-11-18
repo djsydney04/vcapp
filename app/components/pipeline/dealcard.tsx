@@ -27,7 +27,7 @@ export function DealCard({ deal, onClick }: DealCardProps) {
   return (
     <button
       onClick={handleClick}
-      className="w-full text-left rounded-lg border border-slate-200 bg-white px-3 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      className="w-full text-left rounded-lg border border-slate-200 bg-white px-3 py-3 shadow-sm transition-shadow hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="text-sm font-semibold text-slate-900">
@@ -47,7 +47,7 @@ export function DealCard({ deal, onClick }: DealCardProps) {
         {deal.firmName ? ` • ${deal.firmName}` : ''}
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+      <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
         {stageMeta && (
           <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-semibold ${stageMeta.accent} text-white`}>
             <span aria-hidden>●</span>
@@ -58,13 +58,13 @@ export function DealCard({ deal, onClick }: DealCardProps) {
         {deal.thesisArea && <span className="rounded-full bg-slate-900/5 px-2 py-1 font-semibold">{deal.thesisArea}</span>}
       </div>
 
-      <div className="mt-3 space-y-1 text-[11px] text-slate-500">
+      <div className="mt-2 space-y-1 text-[11px] text-slate-500">
         {deal.amountTarget && <div>Target: ${deal.amountTarget.toLocaleString()}</div>}
         {deal.source && <div>Source: {deal.source}</div>}
         {deal.notes && <div className="line-clamp-2 leading-relaxed">{deal.notes}</div>}
       </div>
 
-      <div className="mt-4 flex items-center justify-between text-[11px] text-slate-500">
+      <div className="mt-3 flex items-center justify-between text-[11px] text-slate-500">
         {deal.nextFollowUpAt ? (
           <div className="flex items-center gap-1 font-semibold text-emerald-700">
             <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
